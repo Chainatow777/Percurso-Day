@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Percurso Diário - Produção</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <form id="formulario" onsubmit="event.preventDefault()">
+            <h2 class="text-center">Formulário de Registro de Motorista</h2>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="nome">Nome do Motorista:</label>
+                    <input type="text" class="form-control form-control-lg" id="nome" required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="placa">Placa:</label>
+                    <input type="text" class="form-control form-control-lg" id="placa" required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="data">Data:</label>
+                    <input type="date" class="form-control form-control-lg" id="data" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="km-inicial">Km Inicial:</label>
+                    <input type="number" class="form-control form-control-lg" id="km-inicial" required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="km-final">Km Final:</label>
+                    <input type="number" class="form-control form-control-lg" id="km-final" required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="horario-saida">Horário de Saída:</label>
+                    <input type="time" class="form-control form-control-lg" id="horario-saida" required>
+                </div>
+            </div>
+
+            <h3 class="text-center">Informações do Cliente e Produto</h3>
+
+            <div id="informacoes" class="form-row">
+                <div class="form-group col-md-2 text-center">
+                    <label>Chegada</label>
+                    <input type="time" class="form-control" name="horario-chegada[]" required>
+                </div>
+                <div class="form-group col-md-3 text-center">
+                    <label>Cliente</label>
+                    <input type="text" class="form-control" name="nome-cliente[]" required>
+                </div>
+                <div class="form-group col-md-2 text-center">
+                    <label>Chegada</label>
+                    <input type="time" class="form-control" name="horarios-deixado[]" required>
+                </div>
+                <div class="form-group col-md-2 text-center">
+                    <label>Deixado</label>
+                    <input type="text" class="form-control" name="numero-deixado[]" required>
+                </div>
+                <div class="form-group col-md-2 text-center">
+                    <label>Coletado</label>
+                    <input type="text" class="form-control" name="numero-coletado[]" required>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="adicionarLinha()">Adicionar
+                        Linha</button>
+                </div>
+
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-danger btn-lg btn-block" onclick="removerLinha()">Remover
+                        Linha</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-lg btn-block mt-3"
+                onclick="verificarFormulario()">Enviar</button>
+
+        </form>
+
+        <table id="tabela" class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Horário de Chegada</th>
+                    <th>Nome do Cliente</th>
+                    <th>Horário de Deixado</th>
+                    <th>Número Deixado</th>
+                    <th>Número Coletado</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaCorpo">
+            </tbody>
+        </table>
+
+        <div id="calendar"></div>
+
+    </div>
+
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
+    <script src="script.js"></script>
+    <script src="sheetjs/xlsx.js"></script>
+</body>
+
+</html>
