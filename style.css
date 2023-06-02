@@ -1,9 +1,40 @@
 .container {
     max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-row {
     width: 100%;
     align-items: center;
     justify-content: center;
+}
+
+.my-sweetalert-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.tippy-box[data-theme="custom"] {
+    background-color: #dc3545;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+@media (max-width: 576px) {
+    .form-control-lg {
+        font-size: 14px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
 }
