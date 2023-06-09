@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="fontawesome-free-6.4.0-web/css/all.min.css">
+
     <link rel="stylesheet" href="style.css">
     <title>Percurso Diário - Produção</title>
 </head>
@@ -27,8 +29,7 @@
                 <div class="form-group col-md-4">
                     <label for="placa">Placa:</label>
                     <input type="text" class="form-control form-control-lg" id="placa" required>
-                    <div id="autocomplete"></div>
-                </div>                
+                </div>
 
                 <div class="form-group col-md-4">
                     <label for="data">Data:</label>
@@ -56,27 +57,43 @@
             <h3 class="text-center">Informações do Cliente e Produto</h3>
 
             <div id="informacoes" class="form-row">
-                <div class="form-group col-md-2 text-center">
-                    <label>Saída</label>
-                    <input type="time" class="form-control" name="horario-chegada[]" required>
+                <div class="col-md-1">
+                    <div class="icon-location text-center">
+                        <button class="btn btn-primary getLocationBtn" name="localizacaoBtn"><i
+                                class="fa-solid fa-location-dot"></i></button>
+                    </div>
                 </div>
-                <div class="form-group col-md-3 text-center">
-                    <label>Cliente</label>
-                    <input type="text" class="form-control" name="nome-cliente[]" required>
+                <div class="col-md-3">
+                    <div class="form-group text-center">
+                        <label for="horario-chegada">Saída</label>
+                        <input type="time" class="form-control" name="horario-chegada[]" id="horario-chegada" required>
+                    </div>
                 </div>
-                <div class="form-group col-md-2 text-center">
-                    <label>Chegada</label>
-                    <input type="time" class="form-control" name="horarios-deixado[]" required>
+                <div class="col-md-3">
+                    <div class="form-group text-center">
+                        <label for="nome-cliente">Cliente</label>
+                        <input type="text" class="form-control" name="nome-cliente[]" id="nome-cliente" required>
+                    </div>
                 </div>
-                <div class="form-group col-md-2 text-center">
-                    <label>Deixado</label>
-                    <input type="text" class="form-control" name="numero-deixado[]" required>
+                <div class="col-md-2">
+                    <div class="form-group text-center">
+                        <label for="horarios-deixado">Chegada</label>
+                        <input type="time" class="form-control" name="horarios-deixado[]" id="horarios-deixado"
+                            required>
+                    </div>
                 </div>
-                <div class="form-group col-md-2 text-center">
-                    <label>Coletado</label>
-                    <input type="text" class="form-control" name="numero-coletado[]" required>
+                <div class="col-md-1">
+                    <div class="form-group text-center">
+                        <label for="numero-deixado">Deixado</label>
+                        <input type="text" class="form-control" name="numero-deixado[]" id="numero-deixado" required>
+                    </div>
                 </div>
-
+                <div class="col-md-1">
+                    <div class="form-group text-center">
+                        <label for="numero-coletado">Coletado</label>
+                        <input type="text" class="form-control" name="numero-coletado[]" id="numero-coletado" required>
+                    </div>
+                </div>
             </div>
 
 
@@ -113,8 +130,7 @@
 
     </div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.39.0/dist/autocomplete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/tippy.js@6.3.1/dist/tippy-bundle.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.min.js"></script>

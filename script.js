@@ -1,113 +1,34 @@
+// Informações-Motorista
+var nomeMotorista = document.getElementById('nome').value;
+var data = document.getElementById('data').value;
+var kmInicial = document.getElementById('km-inicial').value;
+var kmFinal = document.getElementById('km-final').value;
+var horarioSaida = document.getElementById('horario-saida').value;
+var numeroPlaca = [];
+
+// Infomações-Cliente
 var horariosChegada = [];
 var nomesCliente = [];
 var horariosDeixado = [];
 var numerosDeixado = [];
 var numerosColetado = [];
-document.addEventListener("DOMContentLoaded", function() {
-    var placaInput = document.getElementById("placa");
-    var placas = [
-        "ABC123",
-        "DEF456",
-        "GHI789"
-        // Adicione outras placas à lista conforme necessário
-    ];
 
-    new Autocomplete(placaInput, placas);
+var placaInput = document.getElementById('placa');
 
-    function Autocomplete(input, options) {
-        var currentFocus;
+placaInput.addEventListener('input', function () {
+    var placaValue = placaInput.value;
 
-        input.addEventListener("input", function() {
-            var inputText = this.value;
-            var autocompleteList = options.filter(function(option) {
-                return option.startsWith(inputText.toUpperCase());
-            });
+    var placaFormatada = placaValue.replace(/\W/g, '');
 
-            closeAllLists();
+    if (placaFormatada.length >= 6) {
+        var letras = placaFormatada.substring(0, 3);
+        var numeros = placaFormatada.substring(3, 6);
 
-            if (inputText.length > 0 && autocompleteList.length > 0) {
-                currentFocus = -1;
-                var autocompleteContainer = createAutocompleteContainer();
+        var placaFormatada = letras.toUpperCase() + '-' + numeros;
 
-                autocompleteList.forEach(function(option) {
-                    var autocompleteOption = createAutocompleteOption(option);
-                    autocompleteContainer.appendChild(autocompleteOption);
-                });
-            }
-        });
+        numeroPlaca.push(placaFormatada);
 
-        input.addEventListener("keydown", function(e) {
-            var autocompleteItems = document.getElementById(this.id + "-autocomplete-list");
-
-            if (!autocompleteItems) {
-                return;
-            }
-
-            autocompleteItems = autocompleteItems.getElementsByTagName("div");
-
-            if (e.keyCode === 40) { // Seta para baixo
-                currentFocus++;
-                addActive(autocompleteItems);
-            } else if (e.keyCode === 38) { // Seta para cima
-                currentFocus--;
-                addActive(autocompleteItems);
-            } else if (e.keyCode === 13) { // Enter
-                e.preventDefault();
-                if (currentFocus > -1) {
-                    autocompleteItems[currentFocus].click();
-                }
-            }
-        });
-
-        function createAutocompleteContainer() {
-            var autocompleteContainer = document.createElement("div");
-            autocompleteContainer.setAttribute("id", input.id + "-autocomplete-list");
-            autocompleteContainer.setAttribute("class", "autocomplete-items");
-            autocompleteContainer.style.backgroundColor = "#FFCCCC"; // Defina a cor de fundo desejada
-            input.parentNode.appendChild(autocompleteContainer);
-            return autocompleteContainer;
-        }        
-
-        function createAutocompleteOption(option) {
-            var autocompleteOption = document.createElement("div");
-            autocompleteOption.textContent = option;
-            autocompleteOption.addEventListener("click", function() {
-                input.value = this.textContent;
-                closeAllLists();
-            });
-            return autocompleteOption;
-        }
-
-        function addActive(autocompleteItems) {
-            removeActive(autocompleteItems);
-
-            if (currentFocus >= autocompleteItems.length) {
-                currentFocus = 0;
-            }
-
-            if (currentFocus < 0) {
-                currentFocus = autocompleteItems.length - 1;
-            }
-
-            autocompleteItems[currentFocus].classList.add("autocomplete-active");
-        }
-
-        function removeActive(autocompleteItems) {
-            Array.from(autocompleteItems).forEach(function(item) {
-                item.classList.remove("autocomplete-active");
-            });
-        }
-
-        function closeAllLists() {
-            var autocompleteItems = document.getElementsByClassName("autocomplete-items");
-            Array.from(autocompleteItems).forEach(function(item) {
-                item.parentNode.removeChild(item);
-            });
-        }
-
-        document.addEventListener("click", function(e) {
-            closeAllLists();
-        });
+        placaInput.value = placaFormatada;
     }
 });
 
@@ -116,21 +37,41 @@ function adicionarLinha() {
     var novaLinha = document.createElement('div');
     novaLinha.classList.add('form-row');
     novaLinha.innerHTML = `
-    <div class="form-group col-md-2">
-      <input type="time" class="form-control" name="horario-chegada[]" required>
+    <div class="col-md-1">
+    <div class="icon-location text-center">
+        <button class="btn btn-primary getLocationBtn" name="localizacaoBtn"><i class="fa-solid fa-location-dot"></i></button>
     </div>
-    <div class="form-group col-md-3">
-      <input type="text" class="form-control" name="nome-cliente[]" required>
+</div>
+<div class="col-md-3">
+    <div class="form-group text-center">
+        <label for="horario-chegada">Saída</label>
+        <input type="time" class="form-control" name="horario-chegada[]" id="horario-chegada" required>
     </div>
-    <div class="form-group col-md-2">
-      <input type="time" class="form-control" name="horarios-deixado[]" required>
+</div>
+<div class="col-md-3">
+    <div class="form-group text-center">
+        <label for="nome-cliente">Cliente</label>
+        <input type="text" class="form-control" name="nome-cliente[]" id="nome-cliente" required>
     </div>
-    <div class="form-group col-md-2">
-      <input type="text" class="form-control" name="numero-deixado[]" required>
+</div>
+<div class="col-md-2">
+    <div class="form-group text-center">
+        <label for="horarios-deixado">Chegada</label>
+        <input type="time" class="form-control" name="horarios-deixado[]" id="horarios-deixado" required>
     </div>
-    <div class="form-group col-md-2">
-      <input type="text" class="form-control" name="numero-coletado[]" required>
+</div>
+<div class="col-md-1">
+    <div class="form-group text-center">
+        <label for="numero-deixado">Deixado</label>
+        <input type="text" class="form-control" name="numero-deixado[]" id="numero-deixado" required>
     </div>
+</div>
+<div class="col-md-1">
+    <div class="form-group text-center">
+        <label for="numero-coletado">Coletado</label>
+        <input type="text" class="form-control" name="numero-coletado[]" id="numero-coletado" required>
+    </div>
+</div>
   `;
     divInformacoes.appendChild(novaLinha);
 }
@@ -213,10 +154,32 @@ function imprimirTabela() {
 
     var dados = [];
 
+    var nomeMotorista = document.getElementById('nome').value;
+    var placa = document.getElementById('placa').value;
+    var data = document.getElementById('data').value;
+    var kmInicial = document.getElementById('km-inicial').value;
+    var kmFinal = document.getElementById('km-final').value;
+    var horarioSaida = document.getElementById('horario-saida').value;
+
     // Cabeçalho
-    var cabecalho = ['Horário de Chegada', 'Nome do Cliente', 'Horário Deixado', 'Número Deixado', 'Número Coletado'];
+    var cabecalho = ['Nome do Motorista', 'Placa', 'Data', 'Km Inicial', 'Km Final', 'Horário de Saída'];
     dados.push(cabecalho);
 
+    var linhaCabecalho = [
+        nomeMotorista,
+        placa,
+        data,
+        kmInicial,
+        kmFinal,
+        horarioSaida
+    ];
+    dados.push(linhaCabecalho);
+
+    // Informações adicionais
+    var informacoes = ['Horário de Chegada', 'Nome do Cliente', 'Horário Deixado', 'Número Deixado', 'Número Coletado'];
+    dados.push(informacoes);
+
+    // Adicionar as linhas com os valores dos campos de entrada
     for (var i = 0; i < horariosChegada.length; i++) {
         var linha = [
             horariosChegada[i].value,
@@ -227,21 +190,34 @@ function imprimirTabela() {
         ];
         dados.push(linha);
 
-        // Adiciona a linha na tabela HTML
-        var linhaHTML = document.createElement('tr');
-        for (var j = 0; j < linha.length; j++) {
-            var colunaHTML = document.createElement('td');
-            colunaHTML.textContent = linha[j];
-            linhaHTML.appendChild(colunaHTML);
-        }
-        tabelaCorpo.appendChild(linhaHTML);
+        // Criação da linha na tabela HTML
+        var novaLinha = document.createElement('tr');
+
+        var colunaHorarioChegada = document.createElement('td');
+        colunaHorarioChegada.textContent = horariosChegada[i].value;
+        novaLinha.appendChild(colunaHorarioChegada);
+
+        var colunaNomeCliente = document.createElement('td');
+        colunaNomeCliente.textContent = nomesCliente[i].value;
+        novaLinha.appendChild(colunaNomeCliente);
+
+        var colunaHorarioDeixado = document.createElement('td');
+        colunaHorarioDeixado.textContent = horariosDeixado[i].value;
+        novaLinha.appendChild(colunaHorarioDeixado);
+
+        var colunaNumeroDeixado = document.createElement('td');
+        colunaNumeroDeixado.textContent = numerosDeixado[i].value;
+        novaLinha.appendChild(colunaNumeroDeixado);
+
+        var colunaNumeroColetado = document.createElement('td');
+        colunaNumeroColetado.textContent = numerosColetado[i].value;
+        novaLinha.appendChild(colunaNumeroColetado);
+
+        tabelaCorpo.appendChild(novaLinha);
     }
 
-    var totalColetas = dados.length - 1;
+    var totalColetas = dados.length - 3; // Exclui a linha do cabeçalho, linha em branco e linha de informações adicionais
     var mediaColetas = totalColetas / 1;
-
-    var kmInicial = parseFloat(document.getElementById('km-inicial').value);
-    var kmFinal = parseFloat(document.getElementById('km-final').value);
 
     var quilometragemPercorrida = kmFinal - kmInicial;
 
@@ -273,6 +249,13 @@ function imprimirTabela() {
                 var wb = XLSX.utils.book_new();
                 var ws = XLSX.utils.aoa_to_sheet(dados);
 
+                // Ajustar o posicionamento das informações no Excel
+                ws['A3'].s = { alignment: { horizontal: 'left' } };
+                ws['B3'].s = { alignment: { horizontal: 'left' } };
+                ws['C3'].s = { alignment: { horizontal: 'left' } };
+                ws['D3'].s = { alignment: { horizontal: 'left' } };
+                ws['E3'].s = { alignment: { horizontal: 'left' } };
+
                 XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
                 XLSX.writeFile(wb, 'percurso_diario.xlsx');
 
@@ -287,6 +270,78 @@ function imprimirTabela() {
             console.log('Clique em Não');
         }
     });
+}
+
+document.addEventListener("click", function (event) {
+    if (event.target.getAttribute("name") === "localizacaoBtn") {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(successCallback.bind(null, event), errorCallback);
+        } else {
+            alert("Geolocalização não é suportada pelo seu navegador.");
+        }
+    }
+});
+
+function successCallback(event, position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+
+    var url = "https://api.opencagedata.com/geocode/v1/json?q=" + latitude + "+" + longitude + "&key=277f5159206e49f7b0ae8b29696b0464";
+
+    fetch(url)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            if (data.results.length > 0) {
+                var address = data.results[0].formatted;
+
+                Swal.fire({
+                    title: "Localização Atual",
+                    text: address,
+                    input: "text",
+                    showCancelButton: true,
+                    confirmButtonText: "Salvar",
+                    cancelButtonText: "Cancelar",
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var formRow = event.target.closest('.form-row');
+                        var clienteInput = formRow.querySelector('input[name="nome-cliente[]"]');
+                        clienteInput.value = result.value;
+
+                        var horarioChegadaInput = formRow.querySelector('input[name="horario-chegada[]"]');
+                        var now = new Date();
+                        var horas = String(now.getHours()).padStart(2, '0');
+                        var minutos = String(now.getMinutes()).padStart(2, '0');
+                        var horarioChegada = horas + ":" + minutos;
+                        horarioChegadaInput.value = horarioChegada;
+                    }
+                });
+            } else {
+                alert("Endereço não encontrado.");
+            }
+        })
+        .catch(function (error) {
+            alert("Falha ao obter o endereço: " + error);
+        });
+}
+
+function errorCallback(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            alert("Permissão para obter localização negada pelo usuário.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            alert("Informações de localização indisponíveis.");
+            break;
+        case error.TIMEOUT:
+            alert("Tempo limite para obter localização expirado.");
+            break;
+        case error.UNKNOWN_ERROR:
+            alert("Erro desconhecido ao obter localização.");
+            break;
+    }
 }
 
 // Seletor para os campos de entrada
