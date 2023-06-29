@@ -1,6 +1,6 @@
 # Readme - Site de Registro de Motorista
 
-Este é um formulário de registro de motorista que permite coletar informações sobre o motorista, o veículo e os clientes atendidos. As informações são exibidas em uma tabela no final do formulário.
+O Site de Registro de Motorista é uma aplicação web que simplifica o processo de registro de informações sobre motoristas, clientes e produtos em uma empresa de transporte. Ele possui um formulário intuitivo para os motoristas inserirem detalhes relevantes e exibe uma tabela atualizada com estatísticas relevantes. O site é fácil de usar, responsivo e pode ser uma ferramenta valiosa para empresas de transporte gerenciarem suas atividades de forma eficiente.
 
 ## Funcionalidades
 
