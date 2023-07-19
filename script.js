@@ -39,7 +39,7 @@ function adicionarLinha() {
     novaLinha.innerHTML = `
     <div class="col-md-1">
     <div class="icon-location text-center">
-        <button class="btn btn-primary getLocationBtn" name="localizacaoBtn"><i class="fa-solid fa-location-dot"></i></button>
+        <button class="btn btn-primary getLocationBtn" name="localizacaoBtn"><i class="bi bi-geo-alt-fill"></i></button>
     </div>
 </div>
 <div class="col-md-3">
